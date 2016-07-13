@@ -19,6 +19,7 @@
       <form:input path="emailAddress" placeholder="emailaddress"/>
       <input type="submit" value="Login"/>
     </form:form>
+    <!--Added comments-->
   </div>
 </div>
 </body>

@@ -1,3 +1,3 @@
-$('.message a').click(function(){
-   $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+jQuery('.message a').click(function(){
+   jQuery('form').animate({height: "toggle", opacity: "toggle"}, "slow");
 });

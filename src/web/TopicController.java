@@ -27,48 +27,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import datastructures.Comment;
 import datastructures.Topic;
+import model.ApplicationModel;
 
-/**
- * code needs to be organised
- * @author ajinkya
- *
- */
+
 @Controller
 public class TopicController{
 
 	protected final Log logger = LogFactory.getLog(getClass());
 	
-	
-	 
 	@RequestMapping(value="/showTopic",method = RequestMethod.GET)
 	public ModelAndView showTopic(ModelMap model,HttpServletRequest request) {
-
-		Topic topic=new Topic();
-		try{  
-			Class.forName("com.mysql.jdbc.Driver");  
-
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","ajinkya","Test@123");  
-
-			Statement stmt=con.createStatement();  
-
-			ResultSet rs=stmt.executeQuery("select * from Topics where topic_id="+request.getParameter("topicId"));  
-
-			while(rs.next()){
-				topic.setTopicId(rs.getInt(1));
-				topic.setTopicTitle(rs.getString(2));
-				topic.setTopicCategory(rs.getString(3));
-				topic.setTopicDescription(rs.getString(4));
-				System.out.println(rs.getInt(1)+"  "+rs.getString(2));
-			} 
-
-
-
-			con.close();  
-
-		}catch(Exception e){
-			System.out.println(e);
-		}  
-
+		
+		String topicId=request.getParameter("topicId");
+		Topic topic=ApplicationModel.getInstance().showTopic(topicId==""?0:Integer.valueOf(topicId));
+		if(topic==null){
+			model.addAttribute("errorMsg","No such topic to Show");
+			return new ModelAndView("homepage");
+		}
 		model.addAttribute("topic",topic);
 		model.addAttribute("userId",request.getSession().getAttribute("userId"));
 		return new ModelAndView("topic");
@@ -78,39 +53,9 @@ public class TopicController{
 	@RequestMapping(value="/getComments",method = RequestMethod.GET,produces=("application/json"))
 	public @ResponseBody List<Comment> getComments(HttpServletRequest request,HttpServletResponse response) 
 			throws ServletException, IOException {
-		ArrayList<Comment> commentsList=new ArrayList<Comment>();
-		Comment comment;
-
-		try{  
-			Class.forName("com.mysql.jdbc.Driver");  
-
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","ajinkya","Test@123");  
-
-			Statement stmt=con.createStatement();  
-
-			ResultSet rs=stmt.executeQuery("select co.comment_id,co.content,co.score,co.upd_date, us.email_id from comments co,users us where co.topic_id="+request.getParameter("topicId")+
-					" and co.user_id=us.user_id and co.score >= -10;");  
-
-			while(rs.next()){
-				comment=new Comment();
-				comment.setCommentId(rs.getInt("comment_id"));
-				comment.setContent(rs.getString("content"));
-				comment.setScore(rs.getInt("score"));
-				comment.setAuthorEmail(rs.getString("email_id"));
-				comment.setDateAdded(rs.getString("upd_date"));
-
-				commentsList.add(comment);
-				System.out.println(rs.getInt(1)+"  "+rs.getString(2));
-			} 
-
-
-
-			con.close();  
-
-		}catch(Exception e){
-			System.out.println(e);
-		}  
-
+		List<Comment> commentsList=null;
+		String topicId=request.getParameter("topicId");
+		commentsList=ApplicationModel.getInstance().getComments(topicId==""?0:Integer.valueOf(topicId));
 		return commentsList;
 
 	}

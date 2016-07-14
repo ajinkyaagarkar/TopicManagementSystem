@@ -4,23 +4,50 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <html>
+
+<script type='text/javascript' src='resources/js/jquery.js'></script>
+<script type='text/javascript' src='resources/js/jquery-ui-1.9.2.custom.min.js'></script>
 <script type="text/javascript" src="resources/js/login.js"></script>
 <link type="text/css" rel="stylesheet" href="resources/css/login.css"/>
+<link href="resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/css/thumbnail-gallery.css" rel="stylesheet">
+<script src="resources/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+function fun()
+{
+	var errorMsg='${errorMsg}';
+	if(errorMsg!='')
+		alert(errorMsg);
+}
+</script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Topic Management System</title>
 </head>
-<body>
+<body onload="fun()">
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Topic Management System</a>
+            </div>
+       </div>
+   </nav>
 <div class="login-page">
   <div class="form">
     
  	<form:form method="POST" action="login.action" commandName="loginForm" class="login-form">
       <form:input path="emailAddress" placeholder="emailaddress"/>
-      <input type="submit" value="Login"/>
+      <input type="submit" value="Get In"/>
     </form:form>
-    <!--Added comments-->
-  </div>
+ </div>
 </div>
 </body>
 </html>

@@ -16,27 +16,38 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-resource.min.js"></script>
 <script type='text/javascript' src="https://cdnjs.cloudflare.com/ajax/libs/ngInfiniteScroll/1.2.1/ng-infinite-scroll.js"></script>
 <script type='text/javascript' src="resources/angular/topiccontroller.js"></script>
+<link rel="stylesheet" href="resources/css/main.css" type="text/css" />
+<link rel="stylesheet" href="resources/css/topic.css" type="text/css" />
+<link rel="stylesheet" href="https://material.angularjs.org/1.0.6/angular-material.css" type="text/css" />
+<link rel="stylesheet" href="https://material.angularjs.org/1.0.6/docs.css" type="text/css" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" type="text/css" />
+<link href="resources/css/bootstrap.min.css" rel="stylesheet">
+<link href="resources/css/thumbnail-gallery.css" rel="stylesheet">
+<script src="resources/js/bootstrap.min.js"></script>
 
 <head>
 	<title>Comment On Your Topics</title>
 	<meta charset="utf-8" />
-	
-	<link rel="stylesheet" href="resources/css/main.css" type="text/css" />
-	<link rel="stylesheet" href="resources/css/topic.css" type="text/css" />
-	<link rel="stylesheet" href="https://material.angularjs.org/1.0.6/angular-material.css" type="text/css" />
-	<link rel="stylesheet" href="https://material.angularjs.org/1.0.6/docs.css" type="text/css" />
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic" type="text/css" />
-	
-
 </head>
 
 
 <body  ng-controller="topicCtrl" ng-app="topicapp" ng-init="getComments();" id="index" class="home" class="ng-cloak">
 	<input type="hidden" value="${topic.topicId}" id="topicId">
 	<input type="hidden" value="${userId}" id="userId">
-	<div id="wrapper" style="text-align: center">    
-    	<div id="yourdiv" style="display: inline-block;"><h5>Topic Management System</h5></div>
-	</div>
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Topic Management System</a>
+            </div>
+       </div>
+   	</nav>
 	
 	
 	<section id="content" class="body">

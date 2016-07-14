@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import datastructures.LoginForm;
 import datastructures.Topic;
+import model.ApplicationModel;
 
 @Controller
 public class HomePageController {
@@ -40,35 +41,9 @@ public class HomePageController {
 	    @RequestMapping(value="/getTopics",method = RequestMethod.GET,headers="Accept=application/json")
 	    public @ResponseBody List<Topic> getTopics(HttpServletRequest request,HttpServletResponse response) 
 	    		throws ServletException, IOException {
-	    	ArrayList<Topic> topicsList=new ArrayList<Topic>();
-	    	Topic topic;
-	    	
-	    	try{  
-				Class.forName("com.mysql.jdbc.Driver");  
-
-				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","ajinkya","Test@123");  
-
-				Statement stmt=con.createStatement();  
-
-				ResultSet rs=stmt.executeQuery("select * from Topics");  
-
-				while(rs.next()){
-					topic=new Topic();
-					topic.setTopicId(rs.getInt(1));
-					topic.setTopicTitle(rs.getString(2));
-					topic.setTopicCategory(rs.getString(3));
-					topic.setTopicDescription(rs.getString(4));
-					topicsList.add(topic);
-					System.out.println(rs.getInt(1)+"  "+rs.getString(2));
-				} 
-					
-			    con.close();  
-
-			}catch(Exception e){
-				System.out.println(e);
-			}  
-
-	        return topicsList;
+	    	List<Topic> topicsList=new ArrayList<Topic>();
+	    	topicsList=ApplicationModel.getInstance().getTopics();
+	    	return topicsList;
 	        
 	    }
 }

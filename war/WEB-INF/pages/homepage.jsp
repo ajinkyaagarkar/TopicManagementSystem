@@ -8,6 +8,14 @@
 <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-route.min.js"></script>
 <script	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular-resource.min.js"></script>
 <script type='text/javascript' src="resources/angular/homepagecontroller.js"></script>
+<script type="text/javascript">
+function fun()
+{
+	var errorMsg='${errorMsg}';
+	if(errorMsg!='')
+		alert(errorMsg);
+}
+</script>
 <head>
 
     <meta charset="utf-8">
@@ -24,7 +32,7 @@
     <!-- Custom CSS -->
     <link href="resources/css/thumbnail-gallery.css" rel="stylesheet">
 </head>
-<body ng-controller="homepageCtrl" ng-init="getTopics();" ng-app="homepageapp"> 
+<body onLoad="fun()" ng-controller="homepageCtrl" ng-init="getTopics();" ng-app="homepageapp"> 
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -39,22 +47,7 @@
                 </button>
                 <a class="navbar-brand" href="#">Topic Management System</a>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="#">About</a>
-                    </li>
-                    <li>
-                        <a href="#">Services</a>
-                    </li>
-                    <li>
-                        <a href="#">Contact</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
+       </div>
         <!-- /.container -->
     </nav>
 
@@ -67,13 +60,16 @@
                 <h1 class="page-header">Available Topics</h1>
             </div>
 
-			
-            <div ng-repeat="topic in topicslist" class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="showTopic.action?topicId={{topic.topicId}}">
-                    {{topic.topicTitle}}
-                </a>
-            </div>
-        </div>
+			<table>
+				<tr ng-repeat="topic in topicslist">
+					<td>
+						<a class="thumbnail" href="showTopic.action?topicId={{topic.topicId}}">
+                    	{{topic.topicTitle}}
+                		</a>
+                	</td>
+				</tr>
+			</table>
+	   </div>
 
         <hr>
 

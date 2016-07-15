@@ -79,13 +79,12 @@ topicCtrls.controller('topicCtrl',[ '$scope',
 												$scope.comments=[];
 												$scope.leftOverComments=[]
 												$scope.getComments = function() {
-                     								//UtilityService.startLoader("Fetching data..", $scope);
                      								
-                     								topicservice.getComments().then(
+													topicservice.getComments().then(
                      		                               function(d) {
                      		                            	   console.log(d);
                      		                            	  $scope.comments=d;
-                     		                                    self.users = d;
+                     		                                    
                      		                               },
                      		                                function(errResponse){
                      		                                    console.error('Error while getting Comments');
@@ -103,7 +102,7 @@ topicCtrls.controller('topicCtrl',[ '$scope',
 	                     		                               function(d) {
 	                     		                            	   console.log(d);
 	                     		                            	  $scope.comments=d;
-	                     		                                    self.users = d;
+	                     		                            	 document.getElementById('comment').value='';
 	                     		                               },
 	                     		                                function(errResponse){
 	                     		                                    console.error('Error while saving comments');
@@ -125,7 +124,7 @@ topicCtrls.controller('topicCtrl',[ '$scope',
                      								$scope.newCommentsList=[];
                      								topicservice.updateScore(like,commentId).then(
                      		                               function(d) {
-                     		                            	  if(d=="" || d==null){
+                     		                            	  if(d.commentId=="" || d.commentId==null || d.commentId==0){
                      		                            		 for(var i=0;i<$scope.comments.length;i++){
                                   									if(index!=i){
                                   										$scope.newCommentsList.push($scope.comments[i])

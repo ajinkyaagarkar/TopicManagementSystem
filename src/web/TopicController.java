@@ -1,14 +1,7 @@
 package web;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -63,41 +56,9 @@ public class TopicController{
 	@RequestMapping(value="/saveComment",method = RequestMethod.POST,produces=("application/json"),consumes=("application/json"))
 	public @ResponseBody List<Comment> saveComment(HttpServletRequest request,HttpServletResponse response,@RequestBody Comment comment) 
 			throws ServletException, IOException {
-		ArrayList<Comment> commentsList=new ArrayList<Comment>();
-		
-		try{  
-			Class.forName("com.mysql.jdbc.Driver");  
-
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","ajinkya","Test@123");  
-
-			Statement stmt=con.createStatement();
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			Date date = new Date();
-			
-			stmt.executeUpdate("insert into comments(content,user_id,topic_id,upd_date) values('"+comment.getContent()+"','"+comment.getUserId()+"','"+comment.getTopicId()+"','"+dateFormat.format(date)+"')");  
-			
-			ResultSet rs=stmt.executeQuery("select co.comment_id,co.content,co.score,co.upd_date, us.email_id from comments co,users us where co.topic_id="+comment.getTopicId()+
-					" and co.user_id=us.user_id and co.score >= -10;");  
-
-			while(rs.next()){
-				comment=new Comment();
-				comment.setCommentId(rs.getInt("comment_id"));
-				comment.setContent(rs.getString("content"));
-				comment.setScore(rs.getInt("score"));
-				comment.setAuthorEmail(rs.getString("email_id"));
-				comment.setDateAdded(rs.getString("upd_date"));
-				commentsList.add(comment);
-				System.out.println(rs.getInt(1)+"  "+rs.getString(2));
-			} 
-
-
-
-			con.close();  
-
-		}catch(Exception e){
-			System.out.println(e);
-		}  
-
+		List<Comment> commentsList=new ArrayList<Comment>();
+		ApplicationModel.getInstance().saveComment(comment);
+		commentsList=ApplicationModel.getInstance().getComments(comment.getTopicId());
 		return commentsList;
 
 	}
@@ -106,39 +67,10 @@ public class TopicController{
 	public @ResponseBody Comment updateScore(HttpServletRequest request,HttpServletResponse response,@RequestBody int score) 
 			throws ServletException, IOException {
 		
-		Comment comment=null;
-		
-		try{  
-			Class.forName("com.mysql.jdbc.Driver");  
-
-			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","ajinkya","Test@123");  
-
-			Statement stmt=con.createStatement();
-			int commentId=Integer.valueOf(request.getParameter("commentId"));
-			stmt.executeUpdate("update comments set score=score+"+score+" where comment_id= "+commentId);
-			
-			ResultSet rs=stmt.executeQuery("select co.comment_id,co.content,co.score,co.upd_date, us.email_id from comments co,users us where co.comment_id="+commentId+
-					" and co.user_id=us.user_id and co.score >= -10;");  
-			
-			while(rs.next()){
-				comment=new Comment();
-				comment.setCommentId(rs.getInt("comment_id"));
-				comment.setContent(rs.getString("content"));
-				comment.setScore(rs.getInt("score"));
-				comment.setAuthorEmail(rs.getString("email_id"));
-				comment.setDateAdded(rs.getString("upd_date"));
-				System.out.println(rs.getInt(1)+"  "+rs.getString(2));
-			}
-
-
-			con.close();  
-
-		}catch(Exception e){
-			System.out.println(e);
-		}  
-
+		int commentId=request.getParameter("commentId")==""?0:Integer.valueOf(request.getParameter("commentId"));
+		ApplicationModel.getInstance().updateScore(score, commentId);
+		Comment comment=ApplicationModel.getInstance().getComment(commentId);
 		return comment;
-
 	}
 
 

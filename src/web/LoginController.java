@@ -37,7 +37,8 @@ public class LoginController{
     	String userId=ApplicationModel.getInstance().getUserId(userEmailId);
     	if(userId==null){
     		logger.info("User Does Not Exist");
-    		userId=ApplicationModel.getInstance().insertUser(userEmailId);
+    		ApplicationModel.getInstance().insertUser(userEmailId);
+    		userId=ApplicationModel.getInstance().getUserId(userEmailId);
     	}
     	if(userId==null){
     		logger.error("User Could Not Be Created");

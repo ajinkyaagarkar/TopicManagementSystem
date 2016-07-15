@@ -6,6 +6,8 @@ public class Topic {
 	String topicTitle;
 	String topicDescription;
 	String topicCategory;
+	String userEmail;
+	String addDate;
 	
 	public String getTopicTitle() {
 		return topicTitle;
@@ -31,6 +33,19 @@ public class Topic {
 	public void setTopicCategory(String topicCategory) {
 		this.topicCategory = topicCategory;
 	}
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+	public String getAddDate() {
+		return addDate;
+	}
+	public void setAddDate(String addDate) {
+		this.addDate = addDate;
+	}
+	
 	
 	
 	

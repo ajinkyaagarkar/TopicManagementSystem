@@ -57,17 +57,17 @@
 				<h2 class="entry-title"><a href="javascript:void(0)" rel="bookmark" title="${topic.topicTitle}">
 				<c:out value="${topic.topicTitle}"/></a></h2>
 			</header>
-			
-			<footer class="post-info">
-				<abbr class="published" title="2012-02-10T14:07:00-07:00">
-					10th February 2012
-				</abbr>
+			<br>
+			<div class="post-info">
+				<div class="published" title="2012-02-10T14:07:00-07:00">
+					<c:out value="${topic.addDate}"/>
+				</div>
 
-				<address class="vcard author">
-					By <a class="url fn" href="javascript:void(0)">Ajinkya</a>
-				</address>
-			</footer>
-			
+				<div class="vcard author">
+					By <a href="javascript:void(0)"><c:out value="${topic.userEmail}"/></a>
+				</div>
+			</div>
+			<br>
 			<div class="entry-content">
 				<c:out value="${topic.topicDescription}"/>
 			</div>
@@ -84,21 +84,21 @@
 		<ol>
 			<li ng-repeat="comment in comments | orderBy:'score':true | limitTo:limit" class="hentry">
 				
-						<footer class="post-info">
-	    					<abbr class="published" title="{{comment.dateAdded}}">
+						<div class="post-info">
+	    					<div title="{{comment.dateAdded}}">
 	    						{{comment.dateAdded}}
-	    					</abbr>
-							<br>
+	    					</div>
+							
 	    					<address class="vcard author">
 	    						By <a class="url fn" href="javascript:void(0)">{{comment.authorEmail}}</a>
 	    					</address>
-	    				</footer>
+	    				</div>
 	
 	    				<div class="entry-content">
 	    					<div hm-read-more hm-text="{{comment.content}}" hm-limit="{{commentLength}}" hm-more-text="{{moreText}}" 
 	    						hm-less-text="{{lessText}}" hm-dots-class="{{dotsClass}}" hm-link-class="{{linkClass}}">
       						</div>
-	    					<!-- <p class="more">{{comment.content}}</p> -->
+	    					
 	    					
 	    				</div>
 	    				<table>

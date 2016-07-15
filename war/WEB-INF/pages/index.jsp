@@ -20,6 +20,15 @@ function fun()
 	if(errorMsg!='')
 		alert(errorMsg);
 }
+
+function check(){
+	if(document.getElementById('emailId').value==""){
+		alert('Email Id Cannot be Empty. Please Enter Email Id');
+		return false;
+	}else{
+		return true;
+	}
+}
 </script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -43,8 +52,8 @@ function fun()
 <div class="login-page">
   <div class="form">
     
- 	<form:form method="POST" action="login.action" commandName="loginForm" class="login-form">
-      <form:input path="emailAddress" placeholder="emailaddress"/>
+ 	<form:form method="POST" action="login.action" onsubmit="return check();" commandName="loginForm" class="login-form">
+      <form:input path="emailAddress" placeholder="john@tms.com" id="emailId"/>
       <input type="submit" value="Get In"/>
     </form:form>
  </div>

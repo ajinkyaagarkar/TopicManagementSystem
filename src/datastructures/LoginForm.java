@@ -10,6 +10,9 @@ public class LoginForm {
 
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
+		
+		
+		this.emailAddress=emailAddress;
 	}
 	
 	
